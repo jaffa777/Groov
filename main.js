@@ -50,28 +50,28 @@ const init = async () => {
 
     Client.on("guildMemberAdd", member => {
         console.log(`[+] - ${member.user.username} joined musicBot's server!`);    
-        Embed.createEmbed(Client.log_channel, `:white_check_mark: **${member.user.username}** joined musicBot's server!`, "Joined");
+        Client.embed.createEmbed(Client.log_channel, `:white_check_mark: **${member.user.username}** joined musicBot's server!`, "Joined");
     
         member.addRole("411182426895679489");
     });
     
     Client.on("guildMemberRemove", member => {
         console.log(`[-] - ${member.user.username} left musicBot's server!`);
-        Embed.createEmbed(Client.log_channel, `:no_entry_sign: **${member.user.username}** left musicBot's server!`, "Left");
+        Client.embed.createEmbed(Client.log_channel, `:no_entry_sign: **${member.user.username}** left musicBot's server!`, "Left");
     });
     
     Client.on("guildUpdate", () => {
         const log_channel = Client.channels.get("411177077014790147");
     
         console.log(`[/] - The guild was edited!`);
-        Embed.createEmbed(Client.log_channel, `:recycle: The guild was edited!`, "Edited");
+        Client.embed.createEmbed(Client.log_channel, `:recycle: The guild was edited!`, "Edited");
     });
     
     Client.on("warn", warn => {
         const log_channel = Client.channels.get("411177077014790147");
     
         console.log(`[!] - WARNING: ${warn}!`);
-        Embed.createEmbed(Client.log_channel, `:bangbang: WARNING: ${warn}!`, "Warning");
+        Client.embed.createEmbed(Client.log_channel, `:bangbang: WARNING: ${warn}!`, "Warning");
     });
     
     Client.on('message', async msg => {
