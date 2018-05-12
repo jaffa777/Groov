@@ -1,7 +1,9 @@
 const Discord = require("discord.js");
 const fs = require('fs');
 
-module.exports.run = (Client, msg, args) => {
+module.exports.run = async (Client, msg, args) => {
+    if(!args[0] || args[1]) return;
+    if(msg.author.id != "254892085000405004") return;
     var channel = msg.guild.channels.get("444896865616396300");
 
     var title;
@@ -15,7 +17,7 @@ module.exports.run = (Client, msg, args) => {
         case "op":
         title = "Operational";
         message = ":white_check_mark: The bot is running without any problems!";
-        color = "#33ce3b";
+        color = msg.guild.me.displayColor;
         break;
 
         case "updating":
@@ -49,13 +51,14 @@ module.exports.run = (Client, msg, args) => {
         emb.setDescription(message);
         emb.setColor(color);
         emb.setAuthor("Groovy Support", Client.user.avatarURL);
-        emb.setFooter("Current status", Client.user.avatarURL);
+        emb.setFooter("Current status");
 
         const fetched = await channel.fetchMessages({limit: 99});
         channel.bulkDelete(fetched);
 
         channel.send(emb);
 
+        msg.react("✅");
         Client.embed.createEmbed(msg.channel, ":white_check_mark: Successfully changed the status!", "Changed status");
     }
 }

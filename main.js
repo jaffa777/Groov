@@ -1,6 +1,12 @@
 const Discord = require("discord.js");
 const fs = require('fs');
 
+const readdir = require("util").promisify(require("fs").readdir);
+
+const commandHandler = require("./core/commandHandler.js");
+const logger = require("./util/logger.js");
+const commandlist = require("./util/commandList.js");
+
 const config = JSON.parse(fs.readFileSync('json/config.json', 'utf8'));
 
 class Support extends Discord.Client {
@@ -18,9 +24,8 @@ const Client = new Support({ messageCacheMaxSize: 50, messageCacheLifetime: 3600
 
 const init = async () => {
     await Client.login(config.TOKEN).then(Client.log.info("[Core] Successfully connected to Discord API"));
-    await SetUp.run(Client, token);
     
-    readdir("./bot/commands/", (err, files) => {
+    readdir("./commands/", (err, files) => {
         if(err) Client.log.error("[Core] " + err);
 
         var jsfiles = files.filter(f => f.split(".").pop() === "js");

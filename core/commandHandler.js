@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const config = JSON.parse(fs.readFileSync("./bot/json/config.json", "utf8"));
+const config = JSON.parse(fs.readFileSync("./json/config.json", "utf8"));
 
 module.exports.run = async (Client, msg) => {
 
@@ -11,7 +11,7 @@ module.exports.run = async (Client, msg) => {
 
         if(!msg.guild.me.permissionsIn(msg.channel).has("SEND_MESSAGES")) return;
     
-        var invoke = msg.content.split(' ')[0].substr(guild.prefix.length);
+        var invoke = msg.content.split(' ')[0].substr(Client.prefix.length);
         var args   = msg.content.split(' ').slice(1);
     
         var cmd = Client.commands.get(invoke);
