@@ -1,0 +1,26 @@
+{
+  "name": "groovy-support",
+  "version": "1.0.0",
+  "description": "Groovy support bot",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rxsto/Groovy-Support.git"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "Rxsto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rxsto/Groovy-Support/issues"
+  },
+  "homepage": "https://github.com/Rxsto/Groovy-Support#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  }
+}
