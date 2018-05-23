@@ -5,4 +5,5 @@ module.exports.list = {
     ban: "ban.js",
     mute: "mute.js",
     unmute: "unmute.js",
+    faq: "faq.js",
 }

@@ -7,17 +7,31 @@ module.exports.run = async (Client, msg, args) => {
     var channel = msg.guild.channels.get("404312845602390017");
     var message = ":white_check_mark: No known issues as of now, report anything you encounter in " + channel;
 
-    var emb = new Discord.RichEmbed();
-    emb.setTitle("Operational");
-    emb.setDescription(message);
-    emb.setColor(msg.guild.me.displayColor);
-    emb.setAuthor("Groovy Support", Client.user.avatarURL);
-    emb.setFooter("Current outages");
+    if(!args[0]) {
+        var emb = new Discord.RichEmbed();
+        emb.setTitle("Operational");
+        emb.setDescription(message);
+        emb.setColor(msg.guild.me.displayColor);
+        emb.setAuthor("Groovy Support", Client.user.avatarURL);
+        emb.setFooter("Current outages");
 
-    const fetched = await outages.fetchMessages({limit: 99});
-    outages.bulkDelete(fetched);
+        const fetched = await outages.fetchMessages({limit: 99});
+        outages.bulkDelete(fetched);
 
-    outages.send(emb);
+        outages.send(emb);
+    } else {
+        var emb = new Discord.RichEmbed();
+        emb.setTitle("Warning");
+        emb.setDescription(args.join(" "));
+        emb.setColor(msg.guild.me.displayColor);
+        emb.setAuthor("Groovy Support", Client.user.avatarURL);
+        emb.setFooter("Current outages");
+
+        const fetched = await outages.fetchMessages({limit: 99});
+        outages.bulkDelete(fetched);
+
+        outages.send(emb);
+    }
 
     msg.react("✅");
     Client.embed.createEmbed(msg.channel, ":white_check_mark: Successfully updated outages!", "Updated outages");
