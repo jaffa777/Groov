@@ -5,7 +5,7 @@ module.exports.run = async (Client, msg, args) => {
     if(msg.author.id != "254892085000405004") return;
     var outages = msg.guild.channels.get("443132392211873802");
     var channel = msg.guild.channels.get("404312845602390017");
-    var message = ":white_check_mark: No known issues as of now, report anything you encounter in " + channel;
+    var message = ":tada: No known issues as of now, report anything you encounter in " + channel;
 
     if(!args[0]) {
         var emb = new Discord.RichEmbed();

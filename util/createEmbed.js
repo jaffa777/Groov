@@ -10,7 +10,7 @@ module.exports = {
         emb.setColor(channel.guild.me.displayColor);
         emb.setTitle(title)
         
-        channel.send("", emb).then((m) => {
+        channel.send(emb).then((m) => {
             message = m
         });
 

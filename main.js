@@ -49,15 +49,15 @@ const init = async () => {
     Client.log.info(`[Setup] The bot has started, with ${Client.users.size} users, in ${Client.channels.size} channels of ${Client.guilds.size} guilds.`);
 
     Client.on("guildMemberAdd", member => {
-        Client.log.info(`[+] - ${member.user.username} joined Groovys server!`);    
-        Client.embed.createEmbed(Client.log_channel, `:white_check_mark: **${member.user.username}** joined Groovys server!`, "Joined");
+        Client.log.info(`[+] - ${member.user.username} joined Groovy's server!`);    
+        Client.embed.createEmbed(Client.log_channel, `:white_check_mark: **${member.user.username}** joined Groovy's server!`, "Joined");
     
         member.addRole("411182426895679489");
     });
     
     Client.on("guildMemberRemove", member => {
-        Client.log.info(`[-] - ${member.user.username} left Groovys server!`);
-        Client.embed.createEmbed(Client.log_channel, `:no_entry_sign: **${member.user.username}** left Groovys server!`, "Left");
+        Client.log.info(`[-] - ${member.user.username} left Groovy's server!`);
+        Client.embed.createEmbed(Client.log_channel, `:no_entry_sign: **${member.user.username}** left Groovy's server!`, "Left");
     });
     
     Client.on("guildUpdate", () => {
