@@ -1,10 +1,10 @@
-const { RichEmbed } = require('discord.js');
+const Discord = require('discord.js');
 
 module.exports = {
 
     createEmbed(channel, content, title) {
         var message;
-        var emb = new RichEmbed();
+        var emb = new Discord.RichEmbed();
         
         emb.setDescription(content);
         emb.setColor(channel.guild.me.displayColor);
@@ -15,5 +15,14 @@ module.exports = {
         });
 
         return message;
+    },
+
+    returnEmbed(content, title) {
+        var emb = new Discord.RichEmbed();
+        
+        emb.setDescription(content);
+        emb.setTitle(title);
+
+        return emb;
     }
 }

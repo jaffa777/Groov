@@ -9,6 +9,11 @@ module.exports.run = async (Client, msg, args) => {
     member.addRole("411182426895679489");
     member.removeRole("444928878692139009");
 
-    msg.react("✅");
+    msg.delete();
+    msg.channel.send(":white_check_mark: Successfully unmuted " + member.user).then(message => {
+        setTimeout( () => {
+            message.delete();
+        }, 10000);
+    });
     Client.embed.createEmbed(Client.log_channel, ":white_check_mark: Successfully unmuted " + member.user, "Unmuted");
 }

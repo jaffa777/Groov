@@ -4,6 +4,7 @@ const fs = require('fs');
 const readdir = require("util").promisify(require("fs").readdir);
 
 const commandHandler = require("./core/commandHandler.js");
+const SetUp = require("./core/SetUp.js");
 const logger = require("./util/logger.js");
 const commandlist = require("./util/commandList.js");
 
@@ -17,6 +18,7 @@ class Support extends Discord.Client {
         this.prefix = "s!";
         this.commands = new Discord.Collection();
         this.log_channel = null;
+        this.webhook = null;
     }
 }
 
@@ -24,6 +26,9 @@ const Client = new Support({ messageCacheMaxSize: 50, messageCacheLifetime: 500,
 
 const init = async () => {
     await Client.login(config.TOKEN).then(Client.log.info("[Core] Successfully connected to Discord API"));
+    await SetUp.run(Client);
+
+    Client.webhook = new Discord.WebhookClient("450345181053583362", config.webhooks.logs);
     
     readdir("./commands/", (err, files) => {
         if(err) Client.log.error("[Core] " + err);
@@ -50,28 +55,16 @@ const init = async () => {
 
     Client.on("guildMemberAdd", member => {
         Client.log.info(`[+] - ${member.user.username} joined Groovy's server!`);    
-        Client.embed.createEmbed(Client.log_channel, `:white_check_mark: **${member.user.username}** joined Groovy's server!`, "Joined");
+        var guildlog = Client.embed.returnEmbed(`:white_check_mark: **${member.user.username}** joined Groovy's server!`, "Joined");
+        Client.webhook.send({ embeds: [guildlog] });
     
         member.addRole("411182426895679489");
     });
     
     Client.on("guildMemberRemove", member => {
         Client.log.info(`[-] - ${member.user.username} left Groovy's server!`);
-        Client.embed.createEmbed(Client.log_channel, `:no_entry_sign: **${member.user.username}** left Groovy's server!`, "Left");
-    });
-    
-    Client.on("guildUpdate", () => {
-        const log_channel = Client.channels.get("411177077014790147");
-    
-        Client.log.info(`[/] - The guild was edited!`);
-        Client.embed.createEmbed(Client.log_channel, `:recycle: The guild was edited!`, "Edited");
-    });
-    
-    Client.on("warn", warn => {
-        const log_channel = Client.channels.get("411177077014790147");
-    
-        Client.log.info(`[!] - WARNING: ${warn}!`);
-        Client.embed.createEmbed(Client.log_channel, `:bangbang: WARNING: ${warn}!`, "Warning");
+        var guildlog = Client.embed.returnEmbed(`:no_entry_sign: **${member.user.username}** left Groovy's server!`, "Left");
+        Client.webhook.send({ embeds: [guildlog] });
     });
     
     Client.on('message', async msg => {
